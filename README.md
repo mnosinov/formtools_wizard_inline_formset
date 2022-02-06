@@ -1,1 +1,3 @@
-# formtools_wizard_inline_formset
+# formtools wizard with inline formset
+sample project - profiles on jobbank
+

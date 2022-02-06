@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{% block title %}{% endblock %} </title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="screen" />
+		{% block extra_head %}{% endblock %}
+	</head>
+<body>
+	<header>
+		{% block header %}{% endblock %}
+	</header>
+
+	<main>
+		{% block content %} {% endblock %}
+	</main>
+
+	<footer>
+		{% block footer %}
+			<div class="rside">&copy; Copyright 2022, <a href="#">profiles.org</a><br /></div>
+		{% endblock %}
+	</footer>
+
+</body>
+</html>

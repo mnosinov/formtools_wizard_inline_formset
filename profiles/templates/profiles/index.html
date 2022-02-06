@@ -1,1 +1,18 @@
-index page
+{% extends 'base.html' %}
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+	<h1>Index page</h1>
+
+	{% block messages %}
+		{% include 'inc/messages.html' %}
+	{% endblock %}
+
+	<ul>
+		<li><a href="{% url 'profiles' %}">Profiles</a></li>
+		<li><a href="{% url 'profile-create-wizard' %}">Add Profile (wizard)</a></li>
+	</ul>
+	
+{% endblock %}
+
+

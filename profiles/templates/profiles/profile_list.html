@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Profiles{% endblock %}
+
+{% block content %}
+	<h1>Profiles</h1>
+
+	{% include 'inc/messages.html' %}
+
+	{% if profile_list %}
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Date Of Birth</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+						{% for profile in profile_list %}
+						<tr>
+							<td>
+								{{ profile.id }}
+							</td>
+							<td>
+								{{ profile.name }}
+							</td>
+							<td>
+								{{profile.dob}}
+							</td>
+							<td>
+								<a href="">View</a> | 
+								<a href="">Update</a> | 
+								<a href="">Delete</a>
+							</td>
+						</tr>
+						{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+			There are no profiles.
+		{% endif %}
+
+{% endblock %}
+
+
