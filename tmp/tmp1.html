@@ -1,4 +1,9 @@
 
+class CertificateForm(forms.ModelForm):
+    class Meta:
+        model = Certificate
+        fields = ('title', )
+
 		<table>
 			{{ wizard.management_form|crispy }}
 			{% if wizard.form.forms %}

@@ -5,10 +5,8 @@
 {% block title %}Profile wizard: certificates{% endblock %}
 
 {% block content %}
-	{{ wizard.form.media }}
-
 	<h2>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</h2>
-	<h3 class="step_title">Certificates</h3>
+	<h3 class="step_title">Work Places</h3>
 
 	{% include 'inc/messages.html' %}
 
@@ -19,30 +17,10 @@
 		<table>
 			{{ wizard.management_form }}
 
-			{{ wizard.form.non_field_errors }}
-			{% if wizard.form.errors %}
-					{% for field in form %}
-							{% for error in field.errors %}
-									<p> {{ error }} </p>
-							{% endfor %}
-					{% endfor %}
-			{% endif %}
-
 			{% if wizard.form.forms %}
 				{{ wizard.form.management_form }}
 				{% for form in wizard.form.forms %}
-
-					{{ form.non_field_errors }}
-
-					{% if form.errors %}
-							{% for field in form %}
-									{% for error in field.errors %}
-											<p> {{ error }} </p>
-									{% endfor %}
-							{% endfor %}
-					{% endif %}
-
-					<div class="certificate-form">
+					<div class="workplace-form">
 						{{form.as_p}}
 					</div>
 				{% endfor %}
@@ -51,11 +29,10 @@
 			{% endif %}
 		</table>
 
-		<button id="add-form" type="button">Add Another Certificate</button>
+		<button id="add-form" type="button">Add Another Work Place</button>
 
 		<div>
 			<button type="submit" class="btn btn-primary"  value="submit">Submit</button>
-
 			{% if wizard.steps.prev %}
 				<button name="wizard_goto_step" type="submit" formnovalidate="formnovalidate" 
 					class="btn btn-secondary float-left" style="margin-right: 0.2em"
@@ -72,7 +49,7 @@
 
 {% block scripts_after %}
 	<script>
-			let certificateForm = document.querySelectorAll(".certificate-form");
+			let certificateForm = document.querySelectorAll(".workplace-form");
 			let container = document.querySelector("#form-container");
 			let addButton = document.querySelector("#add-form");
 			let totalForms = document.querySelector("#id_form-TOTAL_FORMS");

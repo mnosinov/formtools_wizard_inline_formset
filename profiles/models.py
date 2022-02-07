@@ -11,7 +11,7 @@ class Certificate(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE
     )
-    title=models.CharField(max_length=40)
+    title=models.CharField(max_length=40, null=True, blank=True)
 
 
 class Workplace(models.Model):

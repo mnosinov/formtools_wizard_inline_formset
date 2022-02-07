@@ -9,7 +9,11 @@
 	</head>
 <body>
 	<header>
-		{% block header %}{% endblock %}
+		{% block header %}
+		<nav>
+			<a href="{% url 'index' %}">Index</a>
+		</nav>
+		{% endblock %}
 	</header>
 
 	<main>
