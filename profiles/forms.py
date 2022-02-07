@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Profile, Workplace, Certificate, Position
+
 
 # wizard forms - for Profile ----------------------------------BEGIN
 # step1
@@ -12,8 +14,11 @@ class ProfileForm1(forms.Form):
 
 
 # step2
-class ProfileForm2(forms.Form):
-    pass
+class CertificateForm(forms.Form):
+    title = forms.CharField(max_length=50)
+
+
+CertificateFormSet = forms.formset_factory(CertificateForm, extra=1)
 
 
 # step3

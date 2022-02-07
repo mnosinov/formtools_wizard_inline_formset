@@ -19,15 +19,15 @@ class ProfileListView(ListView):
 class ProfileWizard(SessionWizardView):
     # forms
     FORMS = [
-        ("form1", forms.ProfileForm1),
-        ("form2", forms.ProfileForm2),
-        ("form3", forms.ProfileForm3),
+        ("step1", forms.ProfileForm1),
+        ("step2", forms.CertificateFormSet),
+        ("step3", forms.ProfileForm3),
     ]
     # form templates
     TEMPLATES = {
-        "form1": "profiles/profile_wizard/step1.html",
-        "form2": "profiles/profile_wizard/step2.html",
-        "form3": "profiles/profile_wizard/step3.html",
+        "step1": "profiles/profile_wizard/step1.html",
+        "step2": "profiles/profile_wizard/step2.html",
+        "step3": "profiles/profile_wizard/step3.html",
     }
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, 'profile_photos')
@@ -42,6 +42,12 @@ class ProfileWizard(SessionWizardView):
             profile = Profile.objects.get(pk=profile_id)
             return model_to_dict(profile)
         else:
+            if step == 'step2':
+                formset = forms.CertificateFormSet()
+                print('--1')
+                return self.initial_dict.get(step, {'certificate_formset': formset, 'test1': 778})
+                # return {'certificate_formset': formset}
+
             return self.initial_dict.get(step, {})
 
     def done(self, form_list, form_dict, **kwargs):

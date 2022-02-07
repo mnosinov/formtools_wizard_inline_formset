@@ -4,10 +4,6 @@
 
 {% block title %}Profile wizard: certificates{% endblock %}
 
-{% block extra_head %}
-	{{ wizard.form.media }} <!-- TODO explore more this -->
-{% endblock %}
-
 {% block content %}
 	<h2>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</h2>
 	<h3 class="step_title">Certificates</h3>
@@ -18,19 +14,34 @@
 
 		{% csrf_token %}
 
-		<table>
-			{{ wizard.management_form|crispy }}
-			{% if wizard.form.forms %}
-					{{ wizard.form.management_form|crispy }}
-					{% for form in wizard.form.forms %}
-							{{ form|crispy }}
-					{% endfor %}
-			{% else %}
-					{{ wizard.form|crispy }}
-			{% endif %}
-		</table>
+		{{ wizard.management_form }}
+		{{ formset.management_form }}
+		{{ certificate_formset.management_form }}
+		1{{ certificate_formset }}2
+		@{{ wizard.test }}@
+		@{{ test }}@
+		@{{ wizard.formset }}@
+		{{ formset}}
 
-		<button type="submit" class="btn btn-primary"  value="submit">Submit</button>
+		{% for form in wizard.certificate_formset %}
+			<div class="certificate-form">
+				{{form.as_p}}!
+			</div>
+		{% endfor %}
+
+		{% for form in wizard.formset %}
+			<div class="certificate-form">
+				{{form.as_p}}!
+			</div>
+		{% endfor %}
+
+		{% for form in certificate_formset %}
+			<div class="certificate-form">
+				{{form.as_p}}!
+			</div>
+		{% endfor %}
+
+		<button id="add-form" type="button">Add Another Certificate</button>
 
 		{% if wizard.steps.prev %}
 			<button name="wizard_goto_step" type="submit" formnovalidate="formnovalidate" 
@@ -42,4 +53,30 @@
 		{% endif %}
 
 	</form>
+{% endblock %}
+
+
+{% block scripts_after %}
+	<script>
+			let certificateForm = document.querySelectorAll(".certificate-form");
+			let container = document.querySelector("#form-container");
+			let addButton = document.querySelector("#add-form");
+			let totalForms = document.querySelector("#id_form-TOTAL_FORMS");
+
+			let formNum = certificateForm.length-1
+			addButton.addEventListener('click', addForm);
+
+			function addForm(e){
+					e.preventDefault();
+
+					let newForm = certificateForm[0].cloneNode(true);
+					let formRegex = RegExp(`form-(\\d){1}-`,'g');
+
+					formNum++;
+					newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`);
+					container.insertBefore(newForm, addButton);
+					
+					totalForms.setAttribute('value', `${formNum+1}`);
+			}
+	</script>
 {% endblock %}
